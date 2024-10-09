@@ -1,10 +1,10 @@
-function getHour12Option(locale: string): boolean {
+function getHour12Option(localei?: string): boolean {
     // Define locales that typically use 12-hour format
     const hour12Locales = ["en-US", "en-AU", "en-CA", "en-NZ", "ko-KR"];
     return hour12Locales.includes(locale);
 }
 
-export function formatDateTime(date: Date, locale: string): string {
+export function formatDateTime(date: Date, locale?: string): string {
     const now = new Date();
     const diffInMs = now - date;
     const oneDay = 24 * 60 * 60 * 1000;
@@ -35,7 +35,7 @@ export function formatDateTime(date: Date, locale: string): string {
     return date.toLocaleDateString(locale); // Format as dd/mm/yyyy
 }
 
-export function formatTime(time: Date, locale: string): string {
+export function formatTime(time: Date, locale?: string): string {
     return time.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
