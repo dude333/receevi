@@ -126,9 +126,9 @@ export default function ContactUI({ contact }: ContactUIProps) {
                     </div>
 
                     {/* Unread Count Badge */}
-                    {contact.unread_count && contact.unread_count > 0 && (
+                    {typeof contact.unread_count === "number" && contact.unread_count > 0 && (
                         <div className="flex-none ml-2 self-center absolute bottom-0 right-0">
-                            <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs min-w-[20px] h-5 flex items-center justify-center">
+                            <span className="bg-green-500 text-white px-1 py-1 rounded-full text-xs min-w-[20px] h-5 flex items-center justify-center">
                                 {contact.unread_count}
                             </span>
                         </div>
