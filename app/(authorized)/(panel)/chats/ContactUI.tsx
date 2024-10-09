@@ -7,51 +7,15 @@ import Image from "next/image";
 import { formatDateTime } from "@/lib/format";
 import { Check, Copy } from "lucide-react";
 import { useState } from "react";
-
-function ContactUIorig(props: { contact: Contact }) {
-    const { contact } = props;
-    const setCurrentContact = useCurrentContactDispatch();
-    return (
-        <Link
-            href={`/chats/${contact.wa_id}`}
-            onClick={() => {
-                setCurrentContact &&
-                    setCurrentContact({ type: UPDATE_CURRENT_CONTACT, waId: contact.wa_id });
-            }}>
-            <div className="flex flex-row p-2 hover:bg-background-default-hover gap-2 cursor-pointer">
-                <div>
-                    <BlankUser className="w-12 h-12" />
-                </div>
-                <div className="flex flex-row justify-between w-full px-2">
-                    <div className="flex items-center gap-">
-                        <div className="flex flex-col">
-                            <div>{contact.profile_name}</div>
-                            <div className="text-sm">+{contact.wa_id}</div>
-                        </div>
-                        {/* TODO: Add some indication that this row is selected based on condition - contact.is_current */}
-                    </div>
-                    <div>
-                        {(() => {
-                            if (contact.unread_count && contact.unread_count > 0) {
-                                return (
-                                    <span className="bg-green-300 p-2 rounded-full">
-                                        {contact.unread_count}
-                                    </span>
-                                );
-                            }
-                        })()}
-                    </div>
-                </div>
-            </div>
-        </Link>
-    );
-}
+import { usePathname } from "next/navigation";
 
 interface ContactUIProps {
     contact: Contact;
 }
 
 export default function ContactUI({ contact }: ContactUIProps) {
+    const pathname = usePathname();
+    const isSelected = pathname === `/chats/${contact.wa_id}`;
     const setCurrentContact = useCurrentContactDispatch();
     const [copied, setCopied] = useState(false);
     const lastMessageTime = contact.last_message_at
@@ -95,7 +59,10 @@ export default function ContactUI({ contact }: ContactUIProps) {
             }}
             className="block" // Added to fix Link formatting
         >
-            <div className="flex items-center p-3 hover:bg-background-default-hover cursor-pointer border-b border-gray-100 last:border-b-0">
+            <div
+                className={`flex items-center p-3 hover:bg-background-default-hover cursor-pointer border-b border-gray-100 last:border-b-0 ${
+                    isSelected ? "bg-gray-100" : "hover:bg-background-default-hover"
+                }`}>
                 {/* Avatar Section */}
                 <div className="flex-none w-12 h-12 relative rounded-full overflow-hidden mr-3">
                     <BlankUser className="w-full h-full" />
