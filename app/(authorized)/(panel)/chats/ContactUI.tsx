@@ -98,17 +98,7 @@ export default function ContactUI({ contact }: ContactUIProps) {
             <div className="flex items-center p-3 hover:bg-background-default-hover cursor-pointer border-b border-gray-100 last:border-b-0">
                 {/* Avatar Section */}
                 <div className="flex-none w-12 h-12 relative rounded-full overflow-hidden mr-3">
-                    {contact.profile_picture ? (
-                        <Image
-                            src={contact.profile_picture}
-                            alt={contact.profile_name || contact.wa_id}
-                            fill
-                            sizes="48px"
-                            className="object-cover"
-                        />
-                    ) : (
-                        <BlankUser className="w-full h-full" />
-                    )}
+                    <BlankUser className="w-full h-full" />
                 </div>
 
                 {/* Contact Info Section */}
@@ -129,7 +119,6 @@ export default function ContactUI({ contact }: ContactUIProps) {
                                     <Copy
                                         className="w-3 h-3 text-gray-300 hover:text-gray-500 cursor-pointer"
                                         onClick={handleCopy}
-                                        title="Copy phone number"
                                     />
                                 )}
                             </div>
@@ -137,7 +126,7 @@ export default function ContactUI({ contact }: ContactUIProps) {
                     </div>
 
                     {/* Unread Count Badge */}
-                    {contact.unread_count > 0 && (
+                    {contact.unread_count && contact.unread_count > 0 && (
                         <div className="flex-none ml-2 self-center absolute bottom-0 right-0">
                             <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs min-w-[20px] h-5 flex items-center justify-center">
                                 {contact.unread_count}

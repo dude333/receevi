@@ -1,4 +1,5 @@
-function getHour12Option(localei?: string): boolean {
+function getHour12Option(locale?: string): boolean {
+    if (!locale) return false;
     // Define locales that typically use 12-hour format
     const hour12Locales = ["en-US", "en-AU", "en-CA", "en-NZ", "ko-KR"];
     return hour12Locales.includes(locale);
@@ -6,8 +7,10 @@ function getHour12Option(localei?: string): boolean {
 
 export function formatDateTime(date: Date, locale?: string): string {
     const now = new Date();
-    const diffInMs = now - date;
+    const diffInMs = now.getTime() - date.getTime();
     const oneDay = 24 * 60 * 60 * 1000;
+
+    if (!locale) locale = "en-US";
 
     const translations: { [key: string]: string } = {
         "en-US": "Yesterday",
