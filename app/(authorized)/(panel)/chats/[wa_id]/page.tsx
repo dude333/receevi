@@ -13,7 +13,7 @@ import TemplateSelection from "@/components/ui/template-selection";
 import { TemplateRequest } from "@/types/message-template-request";
 import TWLoader from "@/components/TWLoader";
 
-export const revalidate = false;
+// export const revalidate = false;
 
 export default function ContactChat({ params }: { params: { wa_id: string } }) {
     const [isChatWindowOpen, setChatWindowOpen] = useState<boolean | undefined>();
